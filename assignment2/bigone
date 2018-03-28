@@ -1,0 +1,252 @@
+#!/bin/sh
+# This is a shell archive (produced by GNU sharutils 4.7).
+# To extract the files from this archive, save it to some FILE, remove
+# everything before the `#!/bin/sh' line above, then type `sh FILE'.
+#
+lock_dir=_sh24425
+# Made on 2018-01-24 18:44 EST by <n00448518@osprey.unfcsd.unf.edu>.
+# Source directory was `/home/18/n00448518/homepage/cop3530/assignment2'.
+#
+# Existing files will *not* be overwritten, unless `-c' is specified.
+#
+# This shar contains:
+# length mode       name
+# ------ ---------- ------------------------------------------
+#    666 -rw-r--r-- main.c
+#    456 -rw-r--r-- sort.c
+#    101 -rw-r--r-- my.h
+#
+MD5SUM=${MD5SUM-md5sum}
+f=`${MD5SUM} --version | egrep '^md5sum .*(core|text)utils'`
+test -n "${f}" && md5check=true || md5check=false
+${md5check} || \
+  echo 'Note: not verifying md5sums.  Consider installing GNU coreutils.'
+save_IFS="${IFS}"
+IFS="${IFS}:"
+gettext_dir=FAILED
+locale_dir=FAILED
+first_param="$1"
+for dir in $PATH
+do
+  if test "$gettext_dir" = FAILED && test -f $dir/gettext \
+     && ($dir/gettext --version >/dev/null 2>&1)
+  then
+    case `$dir/gettext --version 2>&1 | sed 1q` in
+      *GNU*) gettext_dir=$dir ;;
+    esac
+  fi
+  if test "$locale_dir" = FAILED && test -f $dir/shar \
+     && ($dir/shar --print-text-domain-dir >/dev/null 2>&1)
+  then
+    locale_dir=`$dir/shar --print-text-domain-dir`
+  fi
+done
+IFS="$save_IFS"
+if test "$locale_dir" = FAILED || test "$gettext_dir" = FAILED
+then
+  echo=echo
+else
+  TEXTDOMAINDIR=$locale_dir
+  export TEXTDOMAINDIR
+  TEXTDOMAIN=sharutils
+  export TEXTDOMAIN
+  echo="$gettext_dir/gettext -s"
+fi
+if (echo "testing\c"; echo 1,2,3) | grep c >/dev/null
+then if (echo -n test; echo 1,2,3) | grep n >/dev/null
+     then shar_n= shar_c='
+'
+     else shar_n=-n shar_c= ; fi
+else shar_n= shar_c='\c' ; fi
+f=shar-touch.$$
+st1=200112312359.59
+st2=123123592001.59
+st2tr=123123592001.5 # old SysV 14-char limit
+st3=1231235901
+
+if touch -am -t ${st1} ${f} >/dev/null 2>&1 && \
+   test ! -f ${st1} && test -f ${f}; then
+  shar_touch='touch -am -t $1$2$3$4$5$6.$7 "$8"'
+
+elif touch -am ${st2} ${f} >/dev/null 2>&1 && \
+   test ! -f ${st2} && test ! -f ${st2tr} && test -f ${f}; then
+  shar_touch='touch -am $3$4$5$6$1$2.$7 "$8"'
+
+elif touch -am ${st3} ${f} >/dev/null 2>&1 && \
+   test ! -f ${st3} && test -f ${f}; then
+  shar_touch='touch -am $3$4$5$6$2 "$8"'
+
+else
+  shar_touch=:
+  echo
+  ${echo} 'WARNING: not restoring timestamps.  Consider getting and'
+  ${echo} 'installing GNU `touch'\'', distributed in GNU coreutils...'
+  echo
+fi
+rm -f ${st1} ${st2} ${st2tr} ${st3} ${f}
+#
+if test ! -d ${lock_dir}
+then : ; else ${echo} 'lock directory '${lock_dir}' exists'
+  exit 1
+fi
+if mkdir ${lock_dir}
+then ${echo} 'x - created lock directory `'${lock_dir}\''.'
+else ${echo} 'x - failed to create lock directory `'${lock_dir}\''.'
+  exit 1
+fi
+# ============= main.c ==============
+if test -f 'main.c' && test "$first_param" != -c; then
+  ${echo} 'x -SKIPPING main.c (file already exists)'
+else
+${echo} 'x - extracting main.c (text)'
+  sed 's/^X//' << 'SHAR_EOF' > 'main.c' &&
+#include "my.h"
+X
+int main (int argc, char *argv[]){
+X	
+X	FILE *fr;
+X	int i, nElems;
+X	int *a;
+X
+X	fr = fopen(argv[1], "r");
+X	fscanf(fr, "%d", &nElems);
+X
+X	a = (int*)calloc(nElems, sizeof(int));
+X	
+X	for (i=0; i<nElems; i++){
+X		fscanf(fr, "%d", &a[i]);
+X	}
+X
+X	oesort(a, nElems-1);
+X
+X	while (i!=-1){
+X		
+X		printf("\nEnter an index from 0 to %d (or -1 to quit): ", nElems-1);
+X		scanf("%d", &i);
+X		if(i<nElems && i>=0){
+X			printf("\nThe value at index %d is %d.\n", i, a[i]);
+X		}
+X		else if(i!=-1){
+X			printf("\nThe index you have entered is out of bounds, try again.\n");
+X			i=0;
+X		}	
+X	}
+X
+X	free(a);
+X	
+X	fclose(fr);
+X
+X	printf("\nProgram is closing, thank you.\n\n");
+X
+X		
+X
+X	return;
+} 	 
+SHAR_EOF
+  (set 20 18 01 24 18 43 15 'main.c'; eval "$shar_touch") &&
+  chmod 0644 'main.c'
+if test $? -ne 0
+then ${echo} 'restore of main.c failed'
+fi
+  if ${md5check}
+  then (
+       ${MD5SUM} -c >/dev/null 2>&1 || ${echo} 'main.c: MD5 check failed'
+       ) << \SHAR_EOF
+90a5e44b4e8fd6027ed85b26af786514  main.c
+SHAR_EOF
+  else
+test `LC_ALL=C wc -c < 'main.c'` -ne 666 && \
+  ${echo} 'restoration warning:  size of main.c is not 666'
+  fi
+fi
+# ============= sort.c ==============
+if test -f 'sort.c' && test "$first_param" != -c; then
+  ${echo} 'x -SKIPPING sort.c (file already exists)'
+else
+${echo} 'x - extracting sort.c (text)'
+  sed 's/^X//' << 'SHAR_EOF' > 'sort.c' &&
+#include "my.h"
+X
+void oesort(int array[], int size){
+X	
+X	int i=0;
+X	bool done = false;
+X	int temp;
+X
+X	while (!done){
+X		done = true;
+X		for (i=1; i<size; i+=2){
+X			if (array[i]>array[i+1]){
+X				temp = array[i];
+X				array[i] = array[i+1];
+X				array[i+1] = temp;
+X				done = false;
+X			}
+X		}
+X		for (i=0; i<size; i+=2){
+X			if (array[i]>array[i+1]){
+X				temp = array[i];
+X				array[i] = array[i+1];
+X				array[i+1] = temp;
+X				done = false;
+X			}
+X		}	
+X	}
+X	
+X	return;
+}
+X	 
+SHAR_EOF
+  (set 20 18 01 24 18 21 02 'sort.c'; eval "$shar_touch") &&
+  chmod 0644 'sort.c'
+if test $? -ne 0
+then ${echo} 'restore of sort.c failed'
+fi
+  if ${md5check}
+  then (
+       ${MD5SUM} -c >/dev/null 2>&1 || ${echo} 'sort.c: MD5 check failed'
+       ) << \SHAR_EOF
+2dd94803d1f7ccb31696038b308baeb4  sort.c
+SHAR_EOF
+  else
+test `LC_ALL=C wc -c < 'sort.c'` -ne 456 && \
+  ${echo} 'restoration warning:  size of sort.c is not 456'
+  fi
+fi
+# ============= my.h ==============
+if test -f 'my.h' && test "$first_param" != -c; then
+  ${echo} 'x -SKIPPING my.h (file already exists)'
+else
+${echo} 'x - extracting my.h (text)'
+  sed 's/^X//' << 'SHAR_EOF' > 'my.h' &&
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+X
+void  oesort(int array[], int size);
+X
+X
+X
+SHAR_EOF
+  (set 20 18 01 24 18 27 49 'my.h'; eval "$shar_touch") &&
+  chmod 0644 'my.h'
+if test $? -ne 0
+then ${echo} 'restore of my.h failed'
+fi
+  if ${md5check}
+  then (
+       ${MD5SUM} -c >/dev/null 2>&1 || ${echo} 'my.h: MD5 check failed'
+       ) << \SHAR_EOF
+89a489a730110bafd1509e86e39d30f6  my.h
+SHAR_EOF
+  else
+test `LC_ALL=C wc -c < 'my.h'` -ne 101 && \
+  ${echo} 'restoration warning:  size of my.h is not 101'
+  fi
+fi
+if rm -fr ${lock_dir}
+then ${echo} 'x - removed lock directory `'${lock_dir}\''.'
+else ${echo} 'x - failed to remove lock directory `'${lock_dir}\''.'
+  exit 1
+fi
+exit 0
